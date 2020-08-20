@@ -21,7 +21,9 @@ class Week extends React.Component {
         date: date
       };
       days.push(
-        <Day day={day}
+        <Day
+          key={day.number}
+          day={day}
           selected={selected}
           select={select} />
       );
