@@ -1,124 +1,120 @@
 import React from 'react';
 import Week from './Week';
 import DayNames from './DayNames';
-
+import Form from './Form';
 import moment from 'moment';
 import styled from 'styled-components';
 
 class Calendar extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      month: moment(),
-      selected: moment().startOf('day')
-    };
-
-    this.previous = this.previous.bind(this);
-    this.next = this.next.bind(this);
+    this.state = {}
+    this.firstMonthLabel = this.firstMonthLabel.bind(this);
+    this.secondMonthLabel = this.secondMonthLabel.bind(this);
+    this.getWeeks = this.getWeeks.bind(this)
+    this.getSecondWeeks = this.getSecondWeeks.bind(this)
   }
-
-  previous() {
-    const {
-      month,
-    } = this.state;
-
-    this.setState({
-      month: month.subtract(1, 'month'),
-    });
+  firstMonthLabel() {
+    var firstMonth = this.props.firstMonth
+    return <h3>{firstMonth.format("MMMM YYYY")}</h3>
   }
-
-  next() {
-    const {
-      month,
-    } = this.state;
-
-    this.setState({
-      month: month.add(1, 'month'),
-    });
+  secondMonthLabel() {
+    var secondMonth = this.props.secondMonth
+    // .add(1, 'month')
+    return <h3>{secondMonth.format("MMMM YYYY")}</h3>
   }
+  getWeeks() {
+    // difference between getWeeks & getSecondWeeks is the month;
+    // this.props.firstMonth
+    var firstSunday = this.props.firstMonth.clone().startOf("month").add("w" - 1).day("Sunday");
+    var weeks = [];
+    var done = false;
+    var count = 0;
+    var monthIndex = firstSunday.month();
 
-  select(day) {
-    this.setState({
-      selected: day.date,
-      month: day.date.clone(),
-    });
-  }
-
-  renderWeeks() {
-    let weeks = [];
-    let done = false;
-    let date = this.state.month.clone().startOf("month").add("w" - 1).day("Sunday");
-    let count = 0;
-    let monthIndex = date.month();
-
-    const {
-      selected,
-      month,
-    } = this.state;
-
+    // whileloop;
     while (!done) {
+      // pushing every first sunday of the week;
       weeks.push(
-        <Week key={date}
-          date={date.clone()}
-          month={month}
-          select={(day) => this.select(day)}
-          selected={selected} />
+        <Week
+          // PROPS
+          key={firstSunday}
+          date={firstSunday.clone()}
+          month={this.props.month}
+          checkin={this.props.checkin}
+          checkout={this.props.checkout}
+          // FUNCTIONS:
+          selectDates={this.props.selectDates}
+        // STATES:
+        // select={(day) => this.select(day)}
+        // selected={this.state.selected}
+        />
       );
-
-      date.add(1, "w");
-
-      done = count++ > 2 && monthIndex !== date.month();
-      monthIndex = date.month();
+      firstSunday.add(1, 'w');
+      done = count++ > 2 && monthIndex !== firstSunday.month();
+      monthIndex = firstSunday.month();
     }
-
     return weeks;
-  };
-
-  renderThisMonthLabel() {
-    const {
-      month,
-    } = this.state;
-    return <span className="month-label">{month.format("MMMM YYYY")}</span>;
   }
-  renderNextMonthLabel() {
-    const {
-      month,
-    } = this.state;
-    var nextMonth = month.add(1, 'month')
-    return <span className="month-label">{month.format("MMMM YYYY")}</span>;
-  }
+  getSecondWeeks() {
+    // difference between getWeeks & getSecondWeeks is the month;
+    // this.props.secondMonth
+    var firstSunday = this.props.secondMonth.clone().startOf("month").add("w" - 1).day("Sunday");
+    var weeks = [];
+    var done = false;
+    var count = 0;
+    var monthIndex = firstSunday.month();
 
+    // whileloop;
+    while (!done) {
+      // pushing every first sunday of the week;
+      weeks.push(
+        <Week
+          key={firstSunday}
+          date={firstSunday.clone()}
+          month={this.props.month}
+          selectDates={this.props.selectDates}
+        // select={(day) => this.select(day)}
+        // selected={this.state.selected}
+        />
+      );
+      firstSunday.add(1, 'w');
+      done = count++ > 2 && monthIndex !== firstSunday.month();
+      monthIndex = firstSunday.month();
+    }
+    return weeks;
+  }
   render() {
     return (
       <center>
-        <br /><br /><br /><br />
-        {/* first calendar */}
-        <button className="arrow fa fa-angle-left" onClick={this.previous} />
-        <section className="calendar">
-          <header className="header">
-            <div className="month-display row">
-              {this.renderThisMonthLabel()}
-            </div>
-            <DayNames />
-          </header>
-          {this.renderWeeks()}
-        </section>
-        <br /><br /><br /><br />
-        {/* second calendar */}
-        <section className="calendar">
-          <header className="header">
-            <div className="month-display row">
-              {this.renderNextMonthLabel()}
-            </div>
-            <DayNames />
-          </header>
-          {this.renderWeeks()}
-        </section>
-        <button className="arrow fa fa-angle-right" onClick={this.next} />
-      </center>
-    );
+        <button onClick={this.props.getPreviousMonths}></button>
+        {/* <br /><br /> */}
+        <div>
+          <table>
+            <caption>{this.firstMonthLabel()}</caption>
+            <thead><DayNames /></thead>
+            <tbody>
+              {this.getWeeks()}
+            </tbody>
+          </table>
+        </div>
+        {/* <br /><br /> */}
+        <div>
+          <table>
+            <caption>{this.secondMonthLabel()}</caption>
+            <thead><DayNames /></thead>
+            <tbody>
+              {this.getSecondWeeks()}
+            </tbody>
+          </table>
+        </div>
+        <br /><br />
+        <button onClick={this.props.getNextMonths}></button>
+      </center >
+    )
   }
 }
+
+
 
 export default Calendar;

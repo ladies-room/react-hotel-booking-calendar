@@ -10,7 +10,7 @@ class Week extends React.Component {
     let days = [];
     let { date } = this.props;
 
-    const { month, selected, select } = this.props;
+    const { month, } = this.props;
 
     for (var i = 0; i < 7; i++) {
       let day = {
@@ -22,10 +22,16 @@ class Week extends React.Component {
       };
       days.push(
         <Day
+          // STATE & PROPS:
           key={day.number}
           day={day}
-          selected={selected}
-          select={select} />
+          checkin={this.props.checkin}
+          checkout={this.props.checkout}
+          // FUNCTION:
+          selectDates={this.props.selectDates}
+
+        // select={select}
+        />
       );
 
       date = date.clone();
@@ -33,9 +39,9 @@ class Week extends React.Component {
     }
 
     return (
-      <div className="row week" key={days[0]}>
+      <tr className="row week" key={days[0]}>
         {days}
-      </div>
+      </tr>
     );
   }
 }

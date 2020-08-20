@@ -3,6 +3,15 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 class Day extends React.Component {
+  constructor(props) {
+    super(props)
+    this.pushDates = this.pushDates.bind(this);
+  }
+  pushDates(e) {
+    // call this.props.selectDates(e.date)
+    event.preventDefault();
+    this.props.selectDates(e.date._d)
+  }
   render() {
     const {
       day,
@@ -12,15 +21,18 @@ class Day extends React.Component {
         isToday,
         number
       },
-      select,
-      selected
+      selectDates, checkin, checkout
     } = this.props;
 
+
     return (
-      <span
+      <td
         key={date.toString()}
-        className={"day" + (isToday ? " today" : "") + (isCurrentMonth ? "" : " different-month") + (date.isSame(selected) ? " selected" : "")}
-        onClick={() => select(day)}>{number}</span>
+        // onClick={() => select(day)}
+        onClick={() => this.pushDates(day)}
+      >
+        {number}
+      </td>
     );
   }
 }
