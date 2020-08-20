@@ -21,6 +21,7 @@ class App extends React.Component {
     this.selectDates = this.selectDates.bind(this);
     this.clearDateRange = this.clearDateRange.bind(this);
     this.showDates = this.showDates.bind(this);
+    this.setBookingDate = this.setBookingDate.bind(this)
   }
   getPreviousMonths() {
     this.setState({
@@ -35,26 +36,36 @@ class App extends React.Component {
     })
   }
   selectDates(date) {
-    console.log(typeof date)
     // if dateRange < 2:
     if (this.state.dateRange.length < 2) {
       this.setState({
         dateRange: [...this.state.dateRange, date]
-      })
+      }, this.setBookingDate)
     }
     // if dateRange > 2:
     if (this.state.dateRange.length === 2 || this.state.dateRange.length > 2) {
       this.clearDateRange()
     }
   }
-
+  setBookingDate() {
+    this.setState({
+      checkin: this.state.dateRange[0],
+      checkout: this.state.dateRange[1],
+    })
+  }
   clearDateRange() {
     this.setState({
+      checkin: undefined,
+      checkout: undefined,
       dateRange: []
     })
   }
   showDates() {
     console.log(this.state.dateRange)
+  }
+  componentDidUpdate() {
+    // console.log("checkin ", this.state.checkin)
+    // console.log("out ", this.state.checkout)
   }
   render() {
     return (
