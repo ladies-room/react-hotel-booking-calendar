@@ -17,9 +17,6 @@ app.get('/listing', (req, res) => {
       res.status(200).send(data);
     }
   })
-  // res.send({
-  //   'hack': 'reactor'
-  // })
 })
 
 app.listen(PORT, () => {

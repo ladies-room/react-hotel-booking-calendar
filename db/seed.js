@@ -28,15 +28,20 @@ const generateReservations = function (listingID) {
   for (let i = 0; i < totalBookings; i++) {
     // generate a random booked date between a range;
     var randomDate = faker.date.between('2020-08-01', '2021-08-01');
-    booked_date = moment(randomDate).format('YYYY-MM-DD');
-    // console.log('booked_date 44 ', typeof booked_date, booked_date);
-    dates.push(booked_date);
+    var randomNum = faker.random.number({
+      'min': 3,
+      'max': 13
+    });
+    var check_in = moment(randomDate).format('YYYY-MM-DD');
+    var check_out = moment(randomDate).add(randomNum, 'd').format('YYYY-MM-DD');
+
+    dates.push([check_in, check_out]);
   }
 
   // Iterate over the dates array
   for (let i = 0; i < dates.length; i++) {
-    var queryString = 'INSERT INTO Reservations (listing_id, booked_date) VALUES (?, ?)';
-    var queryParams = [listingID, dates[i]];
+    var queryString = 'INSERT INTO Reservations (listing_id, check_in, check_out) VALUES (?, ?, ?)';
+    var queryParams = [listingID, dates[i][0], dates[i][1]];
     db.query(queryString, queryParams, (error, results) => {
       if (error) {
         console.log(`Failed to insert data to Reservations at listing_id = ${listing_id}`, error);

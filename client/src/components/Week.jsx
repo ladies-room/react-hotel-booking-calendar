@@ -9,7 +9,7 @@ class Week extends React.Component {
   render() {
     let days = [];
     let { date } = this.props;
-
+    // console.log(date.date())
     const { month, } = this.props;
 
     for (var i = 0; i < 7; i++) {
@@ -27,6 +27,7 @@ class Week extends React.Component {
           day={day}
           checkin={this.props.checkin}
           checkout={this.props.checkout}
+          booked_dates={this.props.booked_dates} // [obj, obj]
           // FUNCTION:
           selectDates={this.props.selectDates}
 
