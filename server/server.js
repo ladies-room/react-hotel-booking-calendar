@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const PORT = 8080;
+const PORT = 2046;
 const path = require('path');
 const db = require('../db/index');
 const model = require('../db/model');
@@ -22,3 +22,5 @@ app.get('/listing', (req, res) => {
 app.listen(PORT, () => {
   console.log(`port is running on ${PORT}`)
 })
+
+// test origin
