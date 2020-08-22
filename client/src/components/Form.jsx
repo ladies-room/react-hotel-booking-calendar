@@ -4,7 +4,15 @@ import styled from 'styled-components';
 import Calendar from './Calendar.jsx';
 
 Modal.setAppElement('#app');
-
+const NightSpan = styled.span`
+color: rgb(34, 34, 34) !important;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    line-height: 20px !important;
+    white-space: nowrap !important;
+    padding-left: 4px !important;
+`
 class Form extends React.Component {
   constructor(props) {
     super(props);
@@ -39,7 +47,8 @@ class Form extends React.Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <h2>total price: {this.props.totalPrice}</h2>
+        <h2 style={{ fontWeight: 600 }}>
+          ${this.props.totalPrice}<NightSpan>/ night</NightSpan></h2>
         <label>
           <input
             type="text"
@@ -60,10 +69,16 @@ class Form extends React.Component {
             onChange={this.handleChange}
             onClick={this.handleClick}
           />
+          <input
+            type="text"
+            value='guests'
+            onChange={this.handleChange}
+            onClick={this.handleClick}
+          />
         </label>
         <input type="submit" value="Check Price" />
         {/* // count total nights; give price */}
-      </form>
+      </form >
     );
   }
 }

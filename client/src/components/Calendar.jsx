@@ -6,7 +6,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 const CalendarMainDiv = styled.div`
-margin-left: 0px !important;
+    margin-left: 0px !important;
     margin-right: 0px !important;
     overflow: visible !important;
     display: flex !important;
@@ -136,6 +136,7 @@ class Calendar extends React.Component {
   render() {
     return (
       <CalendarMainDiv>
+        {/* <h2>select checkin date</h2> */}
         <ButtonLeft onClick={this.props.getPreviousMonths}></ButtonLeft>
         {/* <br /><br /> */}
         <FirstMonthMainDiv>
