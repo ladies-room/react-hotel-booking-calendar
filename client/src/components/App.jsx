@@ -1,8 +1,11 @@
 import React from 'react';
-import moment from 'moment';
+// import moment from 'moment';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
 import Calendar from './Calendar.jsx';
 import Form from './Form.jsx';
 import styled from 'styled-components';
+const moment = extendMoment(Moment);
 const axios = require('axios')
 
 const AppMainDiv = styled.div`
@@ -82,6 +85,7 @@ class App extends React.Component {
       dateRange: [],
       checkin: '',
       checkout: '',
+      totalPrice: 0,
       booked_dates: [],
     }
     this.getPreviousMonths = this.getPreviousMonths.bind(this);
@@ -109,6 +113,8 @@ class App extends React.Component {
   selectDates(date) {
     // if dateRange < 2:
     // METHOD 1:
+    // console.log(typeof this.state.dateRange[0])
+    // console.log(this.state.dateRange[0])
     if (this.state.dateRange.length < 2) {
       this.setState({
         dateRange: [...this.state.dateRange, date]
@@ -145,17 +151,22 @@ class App extends React.Component {
   showDates() {
     console.log(this.state.dateRange)
   }
-  checkPrice() {
-    // get request to pricing for dates in this.state.dateRange;
+  checkPrice(checkin, checkout) {
+    // get request to price for dates in this.state.dateRange
+    var count = 0;
+    var range = moment.range(checkin, checkout);
+    var countDays = Array.from(range.by('days')).forEach(n => count++)
+    var price = count * 1000;
+    console.log(price);
+    this.setState({
+      totalPrice: price
+    })
   }
   getAvailability() {
     // get request to db for date available;
     axios.get('/listing')
       .then((response) => {
-        // console.log(response.data) // [{}, {}]
-        // console.log(Array.isArray(response.data)) // true
-        // console.log(response.data[0].check_in) // {''}
-        // console.log(typeof response.data[0].check_in) // str
+        console.log(response.data) // [{}, {}]
         this.setState({
           booked_dates: response.data
         })
@@ -172,7 +183,7 @@ class App extends React.Component {
     return (
       <AppMainDiv>
         {/* CALENDAR DIV BLOCK */}
-        <CalendarMainDiv>
+        < CalendarMainDiv >
           <div>
             <div className='boardertop'></div>
             <CalendarDiv>
@@ -193,11 +204,11 @@ class App extends React.Component {
             </CalendarDiv>
             <div className='boarderbuttom'></div>
           </div>
-        </CalendarMainDiv>
+        </CalendarMainDiv >
 
 
         {/* FORM DIV BLOCK*/}
-        <FormMainDiv>
+        < FormMainDiv >
           <FormSticky>
             <FormInnerWithPaddingDiv>
               <FormInnerDiv>
@@ -205,12 +216,15 @@ class App extends React.Component {
                   // STATES:
                   checkin={this.state.checkin}
                   checkout={this.state.checkout}
-                  checkDate={this.checkDate}
+                  dateRange={this.state.dateRange}
+                  totalPrice={this.state.totalPrice}
+                  // FUNCTION:
+                  checkPrice={this.checkPrice}
                 />
               </FormInnerDiv>
             </FormInnerWithPaddingDiv>
           </FormSticky>
-        </FormMainDiv>
+        </FormMainDiv >
       </AppMainDiv >
     )
   }

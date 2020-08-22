@@ -3,23 +3,39 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 const DayTd = styled.td`
-    height: 44px;
-    width: 44px;
-    // margin: 1px 0px !important;
-    text-align: center !important;
-    width: 44px;
-    height: 43px;
-    background: rgb(255, 255, 255);
-    border: 0px;
-    // color: rgb(34, 34, 34);
-    padding: 0px;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    box-sizing: border-box !important;
-    cursor: pointer !important;
-    text-align: center !important;
+height: 44px;
+width: 44px;
+margin: 1px 0px !important;
+text-align: center !important;
+width: 44px;
+height: 43px;
+background: rgb(255, 255, 255);
+border: 0px;
+// color: rgb(34, 34, 34);
+padding: 0px;
+border-top-right-radius: 50%;
+border-bottom-right-radius: 50%;
+box-sizing: border-box !important;
+// cursor: pointer !important;
+text-align: center !important;
     `
+const InlineSpan = styled.span`
+height: 44px;
+width: 44px;
+margin: 1px 0px !important;
+text-align: center !important;
+width: 44px;
+height: 43px;
+background: rgb(255, 255, 255);
+border: 0px;
+// color: rgb(34, 34, 34);
+padding: 0px;
+border-top-right-radius: 50%;
+border-bottom-right-radius: 50%;
+box-sizing: border-box !important;
 
+text-align: center !important;
+`
 class Day extends React.Component {
   constructor(props) {
     super(props)
@@ -40,22 +56,33 @@ class Day extends React.Component {
     var today = moment(this.props.day.date._d).format('YYYY-MM-DD');
 
     for (var i = 0; i < this.props.booked_dates.length; i++) {
-      var checkin = moment(this.props.booked_dates[i].check_in)._i; //
+      var checkin = moment(this.props.booked_dates[i].check_in)._i;
       var checkout = moment(this.props.booked_dates[i].check_out)._i;
       var booked = moment(today).isBetween(checkin, checkout) // true false
 
       if (booked === true) {
-        // console.log(today, booked)
-        return <DayTd style={{ 'color': 'lightgray' }}>{this.props.day.number}</DayTd>
-      } else {
-        // return <DayTd>{this.props.day.number}</DayTd>
+        return <InlineSpan
+          style={{
+            'color': 'lightgray',
+            'textDecoration': 'line-through',
+            'cursor': 'default'
+            // 'not-allowed'
+          }}
+          key={this.props.day.date.toString()}
+        >
+          {this.props.day.number}
+        </InlineSpan>
       }
-
-      // if (!booked) {
-      //   // return <span>haha</span>
-      //   return <DayTd>{this.props.day.number}</DayTd>
-      // }
     }
+    return <InlineSpan
+      style={{
+        'cursor': 'pointer'
+      }}
+      key={this.props.day.date.toString()}
+      onClick={() => this.pushDates(this.props.day)}
+    >
+      {this.props.day.number}
+    </InlineSpan>
   }
   componentDidMount() {
     this.setIsBookedState();
@@ -63,6 +90,15 @@ class Day extends React.Component {
   render() {
     const { day, day: { date, isCurrentMonth, isToday, number }, selectDates
     } = this.props;
+    return (
+      <DayTd>
+        {this.setIsBookedState()}
+      </DayTd>
+    );
+  }
+}
+
+export default Day;
 
     // var today = moment(day.date._d).format('YYYY-MM-DD');
     // for (var i = 0; i < this.props.booked_dates.length; i++) {
@@ -72,25 +108,15 @@ class Day extends React.Component {
     //   // console.log(today)
     // }
     // console.log(today, booked) // true;
-    return (
+
       // <td>
       //   {showdays}
       // </td>
       // <DayTd
       //   key={date.toString()}
-      //   onClick={() => this.pushDates(day)}
+        // onClick={() => this.pushDates(day)}
       //   style={{
-      //     // 'textDecoration': `${booked}` ? 'line-through' : 'none',
+      //     // ,
       //     // 'color': 'lightgray'
       //   }}
       // >
-      <td>
-        {this.setIsBookedState()}
-      </td>
-      // </DayTd >
-    );
-  }
-}
-
-
-export default Day;
