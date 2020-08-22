@@ -9,6 +9,8 @@ const moment = extendMoment(Moment);
 const axios = require('axios')
 
 const AppMainDiv = styled.div`
+position: relative !important;
+    min-height: 100vh !important;
 padding-left: 80px !important;
 padding-right: 80px !important;
 max-width: 1280px !important;
@@ -17,10 +19,8 @@ max-width: 1280px !important;
     display: flex !important;
     align-items: stretch !important;
     justify-content: flex-start !important;
-    flex-wrap: wrap !important;
+    // flex-wrap: wrap !important;
     width: 100% !important;
-    padding-left: 24px !important;
-    padding-right: 24px !important;
     margin-left: auto !important;
     margin-right: auto !important;
     --page-shell-max-content-width: 1280px;

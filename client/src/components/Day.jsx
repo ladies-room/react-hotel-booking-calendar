@@ -5,20 +5,15 @@ import styled from 'styled-components';
 const DayTd = styled.td`
 height: 44px;
 width: 44px;
-margin: 1px 0px !important;
+// margin: 1px 0px !important;
 text-align: center !important;
-width: 44px;
-height: 43px;
 background: rgb(255, 255, 255);
 border: 0px;
-// color: rgb(34, 34, 34);
 padding: 0px;
-border-top-right-radius: 50%;
-border-bottom-right-radius: 50%;
 box-sizing: border-box !important;
-// cursor: pointer !important;
 text-align: center !important;
-    `
+
+`
 const InlineSpan = styled.span`
 height: 44px;
 width: 44px;
@@ -27,14 +22,20 @@ text-align: center !important;
 width: 44px;
 height: 43px;
 background: rgb(255, 255, 255);
-border: 0px;
-// color: rgb(34, 34, 34);
-padding: 0px;
+// border: 1px lightgray;
+// border-color: 5px;
+padding: 5px;
+
 border-top-right-radius: 50%;
 border-bottom-right-radius: 50%;
-box-sizing: border-box !important;
+border-top-left-radius: 50%;
+border-bottom-left-radius: 50%;
 
+box-sizing: border-box !important;
 text-align: center !important;
+&:hover {
+  background-color: lightgray
+}
 `
 class Day extends React.Component {
   constructor(props) {
@@ -44,6 +45,8 @@ class Day extends React.Component {
     }
     this.pushDates = this.pushDates.bind(this);
     this.setIsBookedState = this.setIsBookedState.bind(this);
+    this.addHoverEffect = this.addHoverEffect.bind(this);
+    this.removeHoverEffect = this.removeHoverEffect.bind(this);
   }
   pushDates(e) {
     // call this.props.selectDates(e.date)
@@ -51,6 +54,12 @@ class Day extends React.Component {
     // console.log(e.date._d, typeof e.date._d) // obj
     // Wed Sep 23 2020 00:00:00 GMT-0700 (Pacific Daylight Time)
     this.props.selectDates(e.date._d)
+  }
+  addHoverEffect(e) {
+    e.target.style.background = 'red'
+  }
+  removeHoverEffect(e) {
+    // e.target.style.background =
   }
   setIsBookedState() {
     var today = moment(this.props.day.date._d).format('YYYY-MM-DD');
@@ -66,7 +75,6 @@ class Day extends React.Component {
             'color': 'lightgray',
             'textDecoration': 'line-through',
             'cursor': 'default'
-            // 'not-allowed'
           }}
           key={this.props.day.date.toString()}
         >
@@ -76,10 +84,17 @@ class Day extends React.Component {
     }
     return <InlineSpan
       style={{
-        'cursor': 'pointer'
+        'cursor': 'pointer',
+        '&:hover': {
+          backgroundColor: 'blue'
+        }
+        // 'outline': '5px solid gray',
+        // 'outlineOffset': '10px'
       }}
       key={this.props.day.date.toString()}
       onClick={() => this.pushDates(this.props.day)}
+    // onMouseOver={this.addHoverEffect}
+    // onMouseOut={this.removeHoverEffect}
     >
       {this.props.day.number}
     </InlineSpan>
@@ -90,6 +105,9 @@ class Day extends React.Component {
   render() {
     const { day, day: { date, isCurrentMonth, isToday, number }, selectDates
     } = this.props;
+
+    // if today's month is not in currentMonth, do not show date;
+    // if(!this.state.currentMonth.includes(day.date._d.month())) { }
     return (
       <DayTd>
         {this.setIsBookedState()}
@@ -99,24 +117,3 @@ class Day extends React.Component {
 }
 
 export default Day;
-
-    // var today = moment(day.date._d).format('YYYY-MM-DD');
-    // for (var i = 0; i < this.props.booked_dates.length; i++) {
-    //   var checkin = moment(this.props.booked_dates[i].check_in)._i;
-    //   var checkout = moment(this.props.booked_dates[i].check_out)._i;
-    //   var booked = moment(today).isBetween(checkin, checkout) // true false
-    //   // console.log(today)
-    // }
-    // console.log(today, booked) // true;
-
-      // <td>
-      //   {showdays}
-      // </td>
-      // <DayTd
-      //   key={date.toString()}
-        // onClick={() => this.pushDates(day)}
-      //   style={{
-      //     // ,
-      //     // 'color': 'lightgray'
-      //   }}
-      // >
