@@ -4,7 +4,7 @@ var connection = mysql.createConnection({
   // host: '172.17.0.2',
   host: 'localhost',
   user: 'root',
-  // port: '8080',
+  // port: '2046',
   database: 'calendar',
 });
 

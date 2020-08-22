@@ -11,7 +11,7 @@ COPY package.json ./
 
 RUN npm install
 
-EXPOSE 8080
+EXPOSE 2046
 
 # Run the app when the container launches
 CMD ['npm', 'start']
