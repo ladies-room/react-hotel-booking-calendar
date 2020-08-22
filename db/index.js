@@ -1,10 +1,11 @@
 const mysql = require('mysql');
 
 var connection = mysql.createConnection({
+  // host: '172.17.0.2',
   host: 'localhost',
   user: 'root',
-  database: 'calendar'
-  // database: 'test2020'
+  // port: '8080',
+  database: 'calendar',
 });
 
 connection.connect(function (err) {

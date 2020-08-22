@@ -2,28 +2,121 @@ import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 
-class Day extends React.Component {
-  render() {
-    const {
-      day,
-      day: {
-        date,
-        isCurrentMonth,
-        isToday,
-        number
-      },
-      select,
-      selected
-    } = this.props;
+const DayTd = styled.td`
+height: 44px;
+width: 44px;
+margin: 1px 0px !important;
+text-align: center !important;
+width: 44px;
+height: 43px;
+background: rgb(255, 255, 255);
+border: 0px;
+// color: rgb(34, 34, 34);
+padding: 0px;
+border-top-right-radius: 50%;
+border-bottom-right-radius: 50%;
+box-sizing: border-box !important;
+// cursor: pointer !important;
+text-align: center !important;
+    `
+const InlineSpan = styled.span`
+height: 44px;
+width: 44px;
+margin: 1px 0px !important;
+text-align: center !important;
+width: 44px;
+height: 43px;
+background: rgb(255, 255, 255);
+border: 0px;
+// color: rgb(34, 34, 34);
+padding: 0px;
+border-top-right-radius: 50%;
+border-bottom-right-radius: 50%;
+box-sizing: border-box !important;
 
+text-align: center !important;
+`
+class Day extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isBooked: false
+    }
+    this.pushDates = this.pushDates.bind(this);
+    this.setIsBookedState = this.setIsBookedState.bind(this);
+  }
+  pushDates(e) {
+    // call this.props.selectDates(e.date)
+    event.preventDefault();
+    // console.log(e.date._d, typeof e.date._d) // obj
+    // Wed Sep 23 2020 00:00:00 GMT-0700 (Pacific Daylight Time)
+    this.props.selectDates(e.date._d)
+  }
+  setIsBookedState() {
+    var today = moment(this.props.day.date._d).format('YYYY-MM-DD');
+
+    for (var i = 0; i < this.props.booked_dates.length; i++) {
+      var checkin = moment(this.props.booked_dates[i].check_in)._i;
+      var checkout = moment(this.props.booked_dates[i].check_out)._i;
+      var booked = moment(today).isBetween(checkin, checkout) // true false
+
+      if (booked === true) {
+        return <InlineSpan
+          style={{
+            'color': 'lightgray',
+            'textDecoration': 'line-through',
+            'cursor': 'default'
+            // 'not-allowed'
+          }}
+          key={this.props.day.date.toString()}
+        >
+          {this.props.day.number}
+        </InlineSpan>
+      }
+    }
+    return <InlineSpan
+      style={{
+        'cursor': 'pointer'
+      }}
+      key={this.props.day.date.toString()}
+      onClick={() => this.pushDates(this.props.day)}
+    >
+      {this.props.day.number}
+    </InlineSpan>
+  }
+  componentDidMount() {
+    this.setIsBookedState();
+  }
+  render() {
+    const { day, day: { date, isCurrentMonth, isToday, number }, selectDates
+    } = this.props;
     return (
-      <span
-        key={date.toString()}
-        className={"day" + (isToday ? " today" : "") + (isCurrentMonth ? "" : " different-month") + (date.isSame(selected) ? " selected" : "")}
-        onClick={() => select(day)}>{number}</span>
+      <DayTd>
+        {this.setIsBookedState()}
+      </DayTd>
     );
   }
 }
 
-
 export default Day;
+
+    // var today = moment(day.date._d).format('YYYY-MM-DD');
+    // for (var i = 0; i < this.props.booked_dates.length; i++) {
+    //   var checkin = moment(this.props.booked_dates[i].check_in)._i;
+    //   var checkout = moment(this.props.booked_dates[i].check_out)._i;
+    //   var booked = moment(today).isBetween(checkin, checkout) // true false
+    //   // console.log(today)
+    // }
+    // console.log(today, booked) // true;
+
+      // <td>
+      //   {showdays}
+      // </td>
+      // <DayTd
+      //   key={date.toString()}
+        // onClick={() => this.pushDates(day)}
+      //   style={{
+      //     // ,
+      //     // 'color': 'lightgray'
+      //   }}
+      // >
