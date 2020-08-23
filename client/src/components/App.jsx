@@ -186,7 +186,7 @@ class App extends React.Component {
   render() {
     return (
       <AppMainDiv>
-        < CalendarMainDiv >
+        <CalendarMainDiv >
           <div>
             <div className='boardertop'></div>
             <CalendarDiv>
@@ -209,7 +209,7 @@ class App extends React.Component {
           </div>
         </CalendarMainDiv >
         {/* FORM DIV BLOCK*/}
-        < FormMainDiv >
+        <FormMainDiv >
           <FormSticky>
             <FormInnerWithPaddingDiv>
               <FormInnerDiv>

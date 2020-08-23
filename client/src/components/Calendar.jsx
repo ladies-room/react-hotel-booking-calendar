@@ -1,8 +1,10 @@
 import React from 'react';
 import Week from './Week';
 import DayNames from './DayNames';
-import Form from './Form';
 import moment from 'moment';
+// const dayjs = require('dayjs')
+// const moment = require('moment');
+// import 'moment-timezone';
 import styled from 'styled-components';
 
 const CalendarMainDiv = styled.div`
@@ -52,11 +54,13 @@ class Calendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {}
-    this.firstMonthLabel = this.firstMonthLabel.bind(this);
-    this.secondMonthLabel = this.secondMonthLabel.bind(this);
     this.getWeeks = this.getWeeks.bind(this)
     this.getSecondWeeks = this.getSecondWeeks.bind(this)
+    // DEPRECATED FUNCTION:
+    this.firstMonthLabel = this.firstMonthLabel.bind(this);
+    this.secondMonthLabel = this.secondMonthLabel.bind(this);
   }
+  // DEPRECATED:
   firstMonthLabel() {
     var firstMonth = this.props.firstMonth
     return <h3>{firstMonth.format("MMMM YYYY")}</h3>
@@ -69,9 +73,6 @@ class Calendar extends React.Component {
   getWeeks() {
     // difference between getWeeks & getSecondWeeks is the month;
     // this.props.firstMonth
-
-    // fucntion that only get the current week; pass that down to the week;
-
     var firstSunday = this.props.firstMonth.clone().startOf("month").add("w" - 1).day("Sunday");
     var weeks = [];
     var done = false;
@@ -92,9 +93,6 @@ class Calendar extends React.Component {
           booked_dates={this.props.booked_dates}
           // FUNCTIONS:
           selectDates={this.props.selectDates}
-        // STATES:
-        // select={(day) => this.select(day)}
-        // selected={this.state.selected}
         />
       );
       firstSunday.add(1, 'w');
@@ -136,9 +134,12 @@ class Calendar extends React.Component {
     return weeks;
   }
   render() {
+    // var firstMonthLabel = <h1>{this.props.firstMonth.format('YYYY-MM-DD')}</h1>
+    // var secondMonthLabel = <h1>{this.props.secondMonth.format('YYYY-MM-DD')}</h1>
+    // var firstMonthLabel = dayjs().format()
+
     return (
       <CalendarMainDiv>
-        {/* <h2>select checkin date</h2> */}
         <ButtonLeft onClick={this.props.getPreviousMonths}></ButtonLeft>
         {/* <br /><br /> */}
         <FirstMonthMainDiv>

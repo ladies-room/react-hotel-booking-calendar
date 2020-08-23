@@ -2,8 +2,9 @@ import React from 'react'
 import styled from 'styled-components';
 import Modal from 'styled-react-modal';
 // import Modal from 'react-modal';
+import moment from 'moment'
 import Calendar from './Calendar.jsx';
-
+import ToggleModal from './ToggleModal.jsx';
 // Modal.setAppElement('#app');
 // FORM HEAD: (FIRST):
 const NightSpan = styled.span`
@@ -14,22 +15,6 @@ const NightSpan = styled.span`
   line-height: 20px !important;
   white-space: nowrap !important;
   padding-left: 4px !important;
-`
-const StyledModal = styled.div`
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 6px 20px !important;
-    display: inline-block !important;
-    padding-top: 24px !important;
-    padding-bottom: 16px !important;
-    padding-left: 32px !important;
-    padding-right: 32px !important;
-    position: absolute !important;
-    top: -24px !important;
-    right: -32px !important;
-    width: 661px !important;
-    z-index: 1 !important;
-    min-height: 460px !important;
-    background: rgb(255, 255, 255) !important;
-    border-radius: 16px !important;
 `
 const DateInput_2 = styled.input`
 -webkit-box-align: start !important;
@@ -246,12 +231,91 @@ height: 56px !important;
     box-sizing: border-box;
 `
 
+// BUTTON:
+const ButtonInput = styled.input`
+cursor: pointer !important;
+    display: inline-block !important;
+    position: relative !important;
+    text-align: center !important;
+    touch-action: manipulation !important;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    font-size: 16px !important;
+    line-height: 20px !important;
+    font-weight: 600 !important;
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    color: rgb(255, 255, 255) !important;
+    width: 100% !important;
+    margin: 0px !important;
+    text-decoration: none !important;
+    border-radius: 8px !important;
+    outline: none !important;
+    transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s, transform 0.1s ease 0s !important;
+    border-width: initial !important;
+    border-style: none !important;
+    border-color: initial !important;
+    border-image: initial !important;
+    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important;
+`
+
+// MODAL STYLES:
+const StyledModal = styled.div`
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 6px 20px !important;
+    display: inline-block !important;
+    padding-top: 24px !important;
+    padding-bottom: 16px !important;
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+    position: absolute !important;
+    top: -24px !important;
+    right: -32px !important;
+    width: 661px !important;
+    z-index: 1 !important;
+    min-height: 460px !important;
+    background: rgb(255, 255, 255) !important;
+    border-radius: 16px !important;
+`
+const ModalHeadDiv = styled.div`
+-webkit-box-align: start !important;
+    -webkit-box-pack: justify !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+    padding-bottom: 16px !important;
+`
+const ModalDateForm = styled.div`
+flex-basis: 315px !important;
+-webkit-box-flex: 0 !important;
+    order: 2 !important;
+    flex-grow: 0 !important;
+    flex-shrink: 0 !important;
+    margin-left: 24px !important;
+    min-width: 270px !important;
+    display: block !important;
+    display: flex !important;
+    background-color: rgb(247, 247, 247) !important;
+    box-shadow: rgb(176, 176, 176) 0px 0px 0px 1px inset !important;
+    border-radius: 8px !important;
+`
+const ModalHeaderRight = styled.div`
+order: 1 !important;
+`
+const ModalBodyDiv = styled.div`
+margin-right: 0px !important;
+    margin-left: -8px !important;
+    overflow: visible !important;
+    display: flex !important;
+    height: 100% !important;
+`
+
 class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       value: '',
-      showCalendar: false,
+      showCalendar: true,
       modalIsOpen: false
     };
     this.handleChange = this.handleChange.bind(this);
@@ -320,12 +384,28 @@ class Form extends React.Component {
             }
           }}
         >
-          <h2>Modal Calendar</h2>
-          <button onClick={this.setModalIsOpen} >Close</button>
+          {/* <div className="modalHeader">Header</div> */}
+          <ModalHeadDiv>
+            {/* <DatePicker /> */}
+            <ModalHeaderRight>Select Dates</ModalHeaderRight>
+          </ModalHeadDiv>
+
+          {/* BODY & CALENDAR */}
+          <ModalBodyDiv>
+            <Calendar />
+            <button onClick={this.setModalIsOpen} >Close</button>
+          </ModalBodyDiv>
         </StyledModal >
+
+      // toggleCalendar = <ToggleModal
+      //   // STATE:
+      //   showCalendar={this.state.showCalendar}
+      //   modalIsOpen={this.state.modalIsOpen}
+      //   // FUNCTION
+      //   setModalIsOpen={this.setModalIsOpen}
+      // />
     }
     return (
-      // <FormMainDiv>
       <form onSubmit={this.handleSubmit}>
         <FormHeadDiv style={{
           fontWeight: 600,
@@ -335,8 +415,6 @@ class Form extends React.Component {
           ${this.props.totalPrice}
           <FormSpan>/ night</FormSpan>
         </FormHeadDiv>
-
-
         {/* BODY DIV START */}
         {/* BODY DIV START */}
         {/* BODY DIV START */}
@@ -382,11 +460,8 @@ class Form extends React.Component {
         {/* BODY DIV END */}
         {/* BODY DIV END */}
         {/* BODY DIV END */}
-
-
         {toggleCalendar}
-        <input type="submit" value="Check Price" />
-        {/* </FormMainDiv > */}
+        <ButtonInput type="submit" value="Check Price" />
       </form >
     );
   }

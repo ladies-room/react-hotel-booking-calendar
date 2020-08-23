@@ -14,10 +14,12 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
+    "dayjs": "^1.8.34",
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "moment": "^2.27.0",
     "moment-range": "^4.0.2",
+    "moment-timezone": "^0.5.31",
     "mysql": "^2.18.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
