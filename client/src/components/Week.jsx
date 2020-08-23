@@ -1,16 +1,12 @@
 import React from 'react';
 import moment from 'moment';
 import Day from './Day'
-// import CalendarHeader from './CalendarHeader.jsx';
-// import DayNames from './DayNames.jsx';
-// const moments = require('../utils/moment-utils');
 
 class Week extends React.Component {
   render() {
     let days = [];
     let { date } = this.props;
-    // console.log(date.date())
-    const { month, } = this.props;
+    const { month } = this.props;
 
     for (var i = 0; i < 7; i++) {
       let day = {
@@ -30,8 +26,6 @@ class Week extends React.Component {
           booked_dates={this.props.booked_dates} // [obj, obj]
           // FUNCTION:
           selectDates={this.props.selectDates}
-
-        // select={select}
         />
       );
 

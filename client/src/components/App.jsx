@@ -5,8 +5,12 @@ import { extendMoment } from 'moment-range';
 import Calendar from './Calendar.jsx';
 import Form from './Form.jsx';
 import styled from 'styled-components';
+import Modal from 'react-modal';
+// import { ModalProvider } from 'styled-react-modal'
 const moment = extendMoment(Moment);
 const axios = require('axios')
+
+// Modal.setAppElement('#app');
 
 const AppMainDiv = styled.div`
 position: relative !important;
@@ -182,7 +186,6 @@ class App extends React.Component {
   render() {
     return (
       <AppMainDiv>
-        {/* CALENDAR DIV BLOCK */}
         < CalendarMainDiv >
           <div>
             <div className='boardertop'></div>
@@ -205,8 +208,6 @@ class App extends React.Component {
             <div className='boarderbuttom'></div>
           </div>
         </CalendarMainDiv >
-
-
         {/* FORM DIV BLOCK*/}
         < FormMainDiv >
           <FormSticky>
@@ -225,6 +226,8 @@ class App extends React.Component {
             </FormInnerWithPaddingDiv>
           </FormSticky>
         </FormMainDiv >
+        {/* <FancyModalButton /> */}
+
       </AppMainDiv >
     )
   }

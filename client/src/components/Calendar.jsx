@@ -120,6 +120,8 @@ class Calendar extends React.Component {
           key={firstSunday}
           date={firstSunday.clone()}
           month={this.props.month}
+          firstMonth={this.props.firstMonth}
+          secondMonth={this.props.secondMonth}
           checkin={this.props.checkin}
           checkout={this.props.checkout}
           booked_dates={this.props.booked_dates}
