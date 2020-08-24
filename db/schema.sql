@@ -40,11 +40,10 @@ CREATE TABLE Listings (
 CREATE TABLE Reservations (
   id INT NOT NULL AUTO_INCREMENT,
   listing_id INT NOT NULL,
-  -- booked_date DATE NOT NULL,
   check_in DATE NOT NULL,
   check_out DATE NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (listing_id) REFERENCES listings(id)
+  FOREIGN KEY (listing_id) REFERENCES Listings(id)
 );
 
 -- INSERT INTO listings (nightly_fee) VALUES (100), (200);

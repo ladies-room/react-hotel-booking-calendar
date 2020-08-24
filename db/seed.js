@@ -1,11 +1,12 @@
-const db = require('../db/index')
+const db = require('./index')
+// const db = require('../db/index')
 const moment = require('moment');
 const faker = require('faker');
 
 const generateListings = function (callback) {
   for (let i = 1; i <= 3; i++) {
     var nightly_fee = Math.floor(Math.random() * (1300, 800 + 1) + 800);
-    var queryString = 'INSERT INTO listings (nightly_fee) VALUES (?)';
+    var queryString = 'INSERT INTO Listings (nightly_fee) VALUES (?)';
     let queryParams = [nightly_fee];
 
     // INSERT DATA TO DB;
@@ -23,7 +24,7 @@ const generateListings = function (callback) {
 const generateReservations = function (listingID) {
   var dates = [];
   var totalBookings = Math.floor(Math.random() * (10 - 2) + 2);
-  console.log(listingID, totalBookings);
+  // console.log(listingID, totalBookings);
 
   for (let i = 0; i < totalBookings; i++) {
     // generate a random booked date between a range;
@@ -45,12 +46,12 @@ const generateReservations = function (listingID) {
     db.query(queryString, queryParams, (error, results) => {
       if (error) {
         console.log(`Failed to insert data to Reservations at listing_id = ${listing_id}`, error);
-      } else {
-        console.log('inserted to Reservations')
       }
+      // else {
+      // console.log('inserted to Reservations')
+      // }
     });
   }
 }
-
 // INVOKE FUNCTIONS:
 generateListings(generateReservations);
