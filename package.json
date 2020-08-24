@@ -21,6 +21,7 @@
     "moment-range": "^4.0.2",
     "moment-timezone": "^0.5.31",
     "mysql": "^2.18.1",
+    "nodemon": "^2.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-modal": "^3.11.2",

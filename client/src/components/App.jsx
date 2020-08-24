@@ -6,6 +6,7 @@ import Calendar from './Calendar.jsx';
 import Form from './Form.jsx';
 import styled from 'styled-components';
 import Modal from 'react-modal';
+const ENDPOINT = '172.17.0.2/16';
 // import { ModalProvider } from 'styled-react-modal'
 const moment = extendMoment(Moment);
 const axios = require('axios')
@@ -204,7 +205,6 @@ class App extends React.Component {
                 getNextMonths={this.getNextMonths}
                 selectDates={this.selectDates}
               />
-              <h2>Calendar</h2>
             </CalendarDiv>
             <div className='boarderbuttom'></div>
           </div>
