@@ -83,8 +83,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       month: moment(),
-      firstMonth: moment(),
-      secondMonth: moment().add(1, 'month'),
+      // firstMonth: moment(),
+      // secondMonth: moment().add(1, 'month'),
       selected: moment().startOf('day'),
       dateRange: [],
       checkin: '',
@@ -194,8 +194,8 @@ class App extends React.Component {
               <Calendar
                 // STATES:
                 month={this.state.month}
-                firstMonth={this.state.firstMonth}
-                secondMonth={this.state.secondMonth}
+                // firstMonth={this.state.firstMonth}
+                // secondMonth={this.state.secondMonth}
                 checkin={this.state.checkin}
                 checkout={this.state.checkout}
                 booked_dates={this.state.booked_dates}
@@ -204,6 +204,7 @@ class App extends React.Component {
                 getNextMonths={this.getNextMonths}
                 selectDates={this.selectDates}
               />
+              <h2>Calendar</h2>
             </CalendarDiv>
             <div className='boarderbuttom'></div>
           </div>

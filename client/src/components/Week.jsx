@@ -12,7 +12,7 @@ class Week extends React.Component {
       let day = {
         name: date.format("dd").substring(0, 1),
         number: date.date(),
-        isCurrentMonth: date.month() === month.month(),
+        // isCurrentMonth: date.month() === month.month(),
         isToday: date.isSame(new Date(), "day"),
         date: date
       };

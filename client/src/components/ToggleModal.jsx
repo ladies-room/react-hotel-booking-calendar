@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
-import Calendar from './Calendar.jsx';
-import DayNames from './DayNames.jsx';
-import Week from './Week.jsx';
-import Day from './Day.jsx';
+// import Calendar from './Calendar.jsx';
+// import DayNames from './DayNames.jsx';
+// import Week from './Week.jsx';
+// import Day from './Day.jsx';
 
 const ModalMainDiv = styled.div`
 box-shadow: rgba(0, 0, 0, 0.2) 0px 6px 20px !important;
