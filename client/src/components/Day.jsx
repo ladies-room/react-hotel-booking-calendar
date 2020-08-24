@@ -5,14 +5,12 @@ import styled from 'styled-components';
 const DayTd = styled.td`
 height: 44px;
 width: 44px;
-// margin: 1px 0px !important;
 text-align: center !important;
 background: rgb(255, 255, 255);
 border: 0px;
 padding: 0px;
 box-sizing: border-box !important;
 text-align: center !important;
-
 `
 const InlineSpan = styled.span`
 height: 44px;
@@ -22,15 +20,11 @@ text-align: center !important;
 width: 44px;
 height: 43px;
 background: rgb(255, 255, 255);
-// border: 1px lightgray;
-// border-color: 5px;
 padding: 5px;
-
 border-top-right-radius: 50%;
 border-bottom-right-radius: 50%;
 border-top-left-radius: 50%;
 border-bottom-left-radius: 50%;
-
 box-sizing: border-box !important;
 text-align: center !important;
 &:hover {
@@ -51,8 +45,6 @@ class Day extends React.Component {
   pushDates(e) {
     // call this.props.selectDates(e.date)
     event.preventDefault();
-    // console.log(e.date._d, typeof e.date._d) // obj
-    // Wed Sep 23 2020 00:00:00 GMT-0700 (Pacific Daylight Time)
     this.props.selectDates(e.date._d)
   }
   addHoverEffect(e) {
@@ -82,22 +74,17 @@ class Day extends React.Component {
         </InlineSpan>
       }
     }
+    // if (this.props.day.isCurrentFirstMonth || this.props.day.isCurrentSecondMonth) {
     return <InlineSpan
       style={{
-        'cursor': 'pointer',
-        '&:hover': {
-          backgroundColor: 'blue'
-        }
-        // 'outline': '5px solid gray',
-        // 'outlineOffset': '10px'
+        'cursor': 'pointer'
       }}
       key={this.props.day.date.toString()}
       onClick={() => this.pushDates(this.props.day)}
-    // onMouseOver={this.addHoverEffect}
-    // onMouseOut={this.removeHoverEffect}
     >
       {this.props.day.number}
     </InlineSpan>
+    // }
   }
   componentDidMount() {
     this.setIsBookedState();

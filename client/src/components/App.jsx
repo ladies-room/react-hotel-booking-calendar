@@ -5,8 +5,12 @@ import { extendMoment } from 'moment-range';
 import Calendar from './Calendar.jsx';
 import Form from './Form.jsx';
 import styled from 'styled-components';
+import Modal from 'react-modal';
+// import { ModalProvider } from 'styled-react-modal'
 const moment = extendMoment(Moment);
 const axios = require('axios')
+
+// Modal.setAppElement('#app');
 
 const AppMainDiv = styled.div`
 position: relative !important;
@@ -79,8 +83,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       month: moment(),
-      firstMonth: moment(),
-      secondMonth: moment().add(1, 'month'),
+      // firstMonth: moment(),
+      // secondMonth: moment().add(1, 'month'),
       selected: moment().startOf('day'),
       dateRange: [],
       checkin: '',
@@ -182,8 +186,7 @@ class App extends React.Component {
   render() {
     return (
       <AppMainDiv>
-        {/* CALENDAR DIV BLOCK */}
-        < CalendarMainDiv >
+        <CalendarMainDiv >
           <div>
             <div className='boardertop'></div>
             <CalendarDiv>
@@ -191,8 +194,8 @@ class App extends React.Component {
               <Calendar
                 // STATES:
                 month={this.state.month}
-                firstMonth={this.state.firstMonth}
-                secondMonth={this.state.secondMonth}
+                // firstMonth={this.state.firstMonth}
+                // secondMonth={this.state.secondMonth}
                 checkin={this.state.checkin}
                 checkout={this.state.checkout}
                 booked_dates={this.state.booked_dates}
@@ -201,14 +204,13 @@ class App extends React.Component {
                 getNextMonths={this.getNextMonths}
                 selectDates={this.selectDates}
               />
+              <h2>Calendar</h2>
             </CalendarDiv>
             <div className='boarderbuttom'></div>
           </div>
         </CalendarMainDiv >
-
-
         {/* FORM DIV BLOCK*/}
-        < FormMainDiv >
+        <FormMainDiv >
           <FormSticky>
             <FormInnerWithPaddingDiv>
               <FormInnerDiv>
@@ -225,6 +227,8 @@ class App extends React.Component {
             </FormInnerWithPaddingDiv>
           </FormSticky>
         </FormMainDiv >
+        {/* <FancyModalButton /> */}
+
       </AppMainDiv >
     )
   }
