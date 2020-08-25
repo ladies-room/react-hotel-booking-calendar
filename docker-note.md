@@ -28,7 +28,11 @@ docker build --tag image_calendar .
 docker run -d -p 2046:2046 --name container_calendar image_calendar:latest
 
 # 1
-docker run --name mysql -e MYSQL_ROOT_PASSWORD='' -d mysql:5.7
+<!-- docker run --name mysql -e MYSQL_ROOT_PASSWORD='' -d mysql:5.7 -->
+docker run --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=true -d mysql:5.7
+# 2
+docker exec -it mysql bash
+mysql -u root -p
 
 
 

@@ -1,11 +1,11 @@
 const mysql = require('mysql');
 
 var connection = mysql.createConnection({
-  host: '172.17.0.2',
-  // host: 'localhost',
+  // host: '172.17.0.2',
+  host: 'localhost',
   user: 'root',
   password: '',
-  port: '3306',
+  // port: '3306',
   database: 'calendar',
   // timeout: 60000
 });

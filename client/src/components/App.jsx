@@ -84,17 +84,17 @@ class App extends React.Component {
     super(props);
     this.state = {
       month: moment(),
-      // firstMonth: moment(),
-      // secondMonth: moment().add(1, 'month'),
       selected: moment().startOf('day'),
       dateRange: [],
       checkin: '',
       checkout: '',
-      totalPrice: 0,
       booked_dates: [],
+      totalPrice: 0,
+      // TRANSFORED TO CALENDAR:
+      // firstMonth: moment(),
+      // secondMonth: moment().add(1, 'month'),
+
     }
-    this.getPreviousMonths = this.getPreviousMonths.bind(this);
-    this.getNextMonths = this.getNextMonths.bind(this);
     this.selectDates = this.selectDates.bind(this);
     this.clearDateRange = this.clearDateRange.bind(this);
     this.showDates = this.showDates.bind(this);
@@ -102,13 +102,18 @@ class App extends React.Component {
     this.checkPrice = this.checkPrice.bind(this);
     this.getAvailability = this.getAvailability.bind(this);
     this.bookedDates = this.bookedDates.bind(this);
+    // TRANSFORED TO CALENDAR:
+    this.getPreviousMonths = this.getPreviousMonths.bind(this);
+    this.getNextMonths = this.getNextMonths.bind(this);
   }
+  // TRANSFORED TO CALENDAR:
   getPreviousMonths() {
     this.setState({
       firstMonth: this.state.firstMonth.subtract(1, 'month'),
       secondMonth: this.state.secondMonth.subtract(1, 'month')
     })
   }
+  // TRANSFORED TO CALENDAR:
   getNextMonths() {
     this.setState({
       firstMonth: this.state.firstMonth.add(1, 'month'),
@@ -201,8 +206,8 @@ class App extends React.Component {
                 checkout={this.state.checkout}
                 booked_dates={this.state.booked_dates}
                 // FUNCTIONS:
-                getPreviousMonths={this.getPreviousMonths}
-                getNextMonths={this.getNextMonths}
+                // getPreviousMonths={this.getPreviousMonths}
+                // getNextMonths={this.getNextMonths}
                 selectDates={this.selectDates}
               />
             </CalendarDiv>
