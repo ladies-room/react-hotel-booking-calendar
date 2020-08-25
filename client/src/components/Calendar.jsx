@@ -55,17 +55,24 @@ class Calendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      // firstMonth: moment(),
+      // secondMonth: moment().add(1, 'month'),
+      booked_dates: [],
+      // TRANFORED FROM APP
       firstMonth: moment(),
       secondMonth: moment().add(1, 'month'),
-      booked_dates: []
+      checkin: '',
+      checkout: ''
     }
     this.getWeeks = this.getWeeks.bind(this)
     this.getSecondWeeks = this.getSecondWeeks.bind(this)
     this.getAvailability = this.getAvailability.bind(this);
     this.firstMonthLabel = this.firstMonthLabel.bind(this);
     this.secondMonthLabel = this.secondMonthLabel.bind(this);
+    // TRANSFORED FROM APP:
+    this.getPreviousMonths = this.getPreviousMonths.bind(this);
+    this.getNextMonths = this.getNextMonths.bind(this);
   }
-  // DEPRECATED:
   firstMonthLabel() {
     var firstMonth = this.state.firstMonth
     return <h3>{firstMonth.format("MMMM YYYY")}</h3>
@@ -73,6 +80,21 @@ class Calendar extends React.Component {
   secondMonthLabel() {
     var secondMonth = this.state.secondMonth
     return <h3>{secondMonth.format("MMMM YYYY")}</h3>
+  }
+  // TRANSFORED FROM APP:
+  getPreviousMonths() {
+    console.log('hi')
+    this.setState({
+      firstMonth: this.state.firstMonth.subtract(1, 'month'),
+      secondMonth: this.state.secondMonth.subtract(1, 'month')
+    })
+  }
+  // TRANSFORED FROM APP:
+  getNextMonths() {
+    this.setState({
+      firstMonth: this.state.firstMonth.add(1, 'month'),
+      secondMonth: this.state.secondMonth.add(1, 'month')
+    })
   }
   getWeeks() {
     // difference between getWeeks & getSecondWeeks is the month;
@@ -151,13 +173,11 @@ class Calendar extends React.Component {
     this.getAvailability();
   }
   render() {
-
     return (
       <CalendarMainDiv>
-        {/* <ButtonLeft onClick={this.props.getPreviousMonths}></ButtonLeft> */}
-        {/* <br /><br /> */}
         <FirstMonthMainDiv>
-          <div></div>
+          {/* <ButtonLeft /></ButtonLeft> */}
+          <ButtonLeft onClick={this.getPreviousMonths}></ButtonLeft>
           <table>
             <caption style={{ fontSize: '16px' }}>{this.firstMonthLabel()}</caption>
             <thead><DayNames /></thead>
@@ -167,8 +187,6 @@ class Calendar extends React.Component {
           </table>
         </FirstMonthMainDiv>
 
-        {/* <br /><br /> */}
-        <br />
         <SecondMonthMaindiv>
           <table>
             <caption>{this.secondMonthLabel()}</caption>
@@ -177,8 +195,8 @@ class Calendar extends React.Component {
               {this.getSecondWeeks()}
             </tbody>
           </table>
+          <button onClick={this.getNextMonths}></button>
         </SecondMonthMaindiv>
-        {/* <button onClick={this.props.getNextMonths}></button> */}
       </CalendarMainDiv>
     )
   }
