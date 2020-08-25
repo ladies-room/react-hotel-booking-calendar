@@ -51,6 +51,8 @@ appearance: none !important;
     // background: transparent !important;
     // transition: -ms-transform 0.25s ease 0s, -webkit-transform 0.25s ease 0s, transform 0.25s ease 0s !important;
 `
+
+
 class Calendar extends React.Component {
   constructor(props) {
     super(props);
@@ -83,7 +85,6 @@ class Calendar extends React.Component {
   }
   // TRANSFORED FROM APP:
   getPreviousMonths() {
-    console.log('hi')
     this.setState({
       firstMonth: this.state.firstMonth.subtract(1, 'month'),
       secondMonth: this.state.secondMonth.subtract(1, 'month')
@@ -177,7 +178,7 @@ class Calendar extends React.Component {
       <CalendarMainDiv>
         <FirstMonthMainDiv>
           {/* <ButtonLeft /></ButtonLeft> */}
-          <ButtonLeft onClick={this.getPreviousMonths}></ButtonLeft>
+          <button onClick={this.getPreviousMonths}>last month</button>
           <table>
             <caption style={{ fontSize: '16px' }}>{this.firstMonthLabel()}</caption>
             <thead><DayNames /></thead>
@@ -188,6 +189,7 @@ class Calendar extends React.Component {
         </FirstMonthMainDiv>
 
         <SecondMonthMaindiv>
+          <button onClick={this.getNextMonths}>next month</button>
           <table>
             <caption>{this.secondMonthLabel()}</caption>
             <thead><DayNames /></thead>
@@ -195,7 +197,7 @@ class Calendar extends React.Component {
               {this.getSecondWeeks()}
             </tbody>
           </table>
-          <button onClick={this.getNextMonths}></button>
+          {/* <ButtonLeft onClick={this.getNextMonths}></ButtonLeft> */}
         </SecondMonthMaindiv>
       </CalendarMainDiv>
     )

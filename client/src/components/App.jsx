@@ -102,6 +102,7 @@ class App extends React.Component {
     this.checkPrice = this.checkPrice.bind(this);
     this.getAvailability = this.getAvailability.bind(this);
     this.bookedDates = this.bookedDates.bind(this);
+    this.readme = this.readme.bind(this);
     // TRANSFORED TO CALENDAR:
     this.getPreviousMonths = this.getPreviousMonths.bind(this);
     this.getNextMonths = this.getNextMonths.bind(this);
@@ -186,7 +187,15 @@ class App extends React.Component {
   bookedDates() {
     //
   }
+  readme() {
+    console.log(`README !! `)
+    console.log(`1. last/next month btn is working, just ugly`)
+    console.log(`2. state/props is not linked acurrately in modal calendar, it's an easy fix for me, but use the calendar on the page for now..!`)
+    console.log(`3. 'clear dates' in modal calendar is not working`)
+    console.log(`4. atm, you CAN book dates that are already booked`)
+  }
   componentDidMount() {
+    this.readme();
     this.getAvailability();
   }
   render() {
